@@ -25,12 +25,10 @@ export const TaskList = () => {
     return matchCategory && matchStatus && matchPriority;
   });
 
-  if (isLoading) return <div>Загрузка...</div>;
+  if (isLoading) return <div>Loading...</div>;
 
   if (!filteredTasks.length)
-    return (
-      <div className="text-center text-gray-600 mt-10">Задач не найдено</div>
-    );
+    return <div className="text-center text-gray-600 mt-10">No tasks</div>;
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

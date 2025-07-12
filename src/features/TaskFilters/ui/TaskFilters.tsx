@@ -1,91 +1,44 @@
-import { Select, Option, Label } from "@admiral-ds/react-ui";
+import { MultiSelectFilter } from "@/shared/ui/MultiSelectFilter";
 import { useTaskFilters } from "../model/useTaskFilters";
-import type { TaskCategory, TaskPriority, TaskStatus } from "@/entities/Task";
-
-const categories: TaskCategory[] = [
-  "Bug",
-  "Feature",
-  "Documentation",
-  "Refactor",
-  "Test",
-];
-const statuses: TaskStatus[] = ["To Do", "In Progress", "Done"];
-const priorities: TaskPriority[] = ["Low", "Medium", "High"];
+import {
+  taskCategories,
+  taskStatuses,
+  taskPriorities,
+} from "@/shared/config/taskOptions";
 
 export const TaskFilters = () => {
   const {
     selectedCategories,
-    selectedPriorities,
     selectedStatuses,
+    selectedPriorities,
     setSelectedCategories,
-    setSelectedPriorities,
     setSelectedStatuses,
+    setSelectedPriorities,
   } = useTaskFilters();
 
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-      <div className="flex flex-col gap-2">
-        <Label>Категория</Label>
-        <Select
-          multiple
-          placeholder="Выберите категорию"
-          value={selectedCategories}
-          onChange={(e) => {
-            const values = Array.from(e.target.selectedOptions).map(
-              (option) => option.value as TaskCategory,
-            );
-            setSelectedCategories(values);
-          }}
-        >
-          {categories.map((category) => (
-            <Option key={category} value={category}>
-              {category}
-            </Option>
-          ))}
-        </Select>
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <Label>Статус</Label>
-        <Select
-          multiple
-          placeholder="Выберите статус"
-          value={selectedStatuses}
-          onChange={(e) => {
-            const values = Array.from(e.target.selectedOptions).map(
-              (option) => option.value as TaskStatus,
-            );
-            setSelectedStatuses(values);
-          }}
-        >
-          {statuses.map((status) => (
-            <Option key={status} value={status}>
-              {status}
-            </Option>
-          ))}
-        </Select>
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <Label>Приоритет</Label>
-        <Select
-          multiple
-          placeholder="Выберите приоритет"
-          value={selectedPriorities}
-          onChange={(e) => {
-            const values = Array.from(e.target.selectedOptions).map(
-              (option) => option.value as TaskPriority,
-            );
-            setSelectedPriorities(values);
-          }}
-        >
-          {priorities.map((priority) => (
-            <Option key={priority} value={priority}>
-              {priority}
-            </Option>
-          ))}
-        </Select>
-      </div>
+      <MultiSelectFilter
+        label="Category"
+        options={taskCategories}
+        value={selectedCategories}
+        onChange={setSelectedCategories}
+        placeholder="Select category"
+      />
+      <MultiSelectFilter
+        label="Status"
+        options={taskStatuses}
+        value={selectedStatuses}
+        onChange={setSelectedStatuses}
+        placeholder="Select status"
+      />
+      <MultiSelectFilter
+        label="Priority"
+        options={taskPriorities}
+        value={selectedPriorities}
+        onChange={setSelectedPriorities}
+        placeholder="Select priority"
+      />
     </div>
   );
 };

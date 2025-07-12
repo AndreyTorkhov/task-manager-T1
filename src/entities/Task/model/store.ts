@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { DEMO_TASKS } from "@/shared/config/demo/demoTasks";
 import type { Task } from "./types";
 
 interface TasksState {
@@ -10,25 +11,6 @@ interface TasksState {
 }
 
 const LS_KEY = "task-manager-tasks";
-
-// Демо-данные с явным указанием типа
-const DEMO_TASKS: Task[] = [
-  {
-    id: "1",
-    title: "Протестировать систему",
-    description: "Проверить стабильность приложения",
-    category: "Test",
-    status: "To Do",
-    priority: "Medium",
-  },
-  {
-    id: "2",
-    title: "Обновить документацию",
-    category: "Documentation",
-    status: "In Progress",
-    priority: "Low",
-  },
-];
 
 export const useTasksStore = create<TasksState>((set, get) => ({
   tasks: [],
@@ -47,10 +29,10 @@ export const useTasksStore = create<TasksState>((set, get) => ({
       }
 
       set({ tasks });
-    } catch (error) {
+    } catch {
       set({
-        error: "Ошибка загрузки задач",
-        tasks: DEMO_TASKS, // fallback
+        error: "Failed to load tasks",
+        tasks: DEMO_TASKS,
       });
     } finally {
       set({ isLoading: false });

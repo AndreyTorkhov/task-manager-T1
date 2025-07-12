@@ -3,7 +3,7 @@ import type {
   TaskCategory,
   TaskStatus,
   TaskPriority,
-} from "@/entities/Task/model/types";
+} from "@/shared/config/taskOptions";
 
 interface TaskFiltersState {
   selectedCategories: TaskCategory[];
