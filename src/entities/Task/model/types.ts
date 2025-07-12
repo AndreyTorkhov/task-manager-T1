@@ -1,11 +1,8 @@
-export type TaskCategory =
-  | "Bug"
-  | "Feature"
-  | "Documentation"
-  | "Refactor"
-  | "Test";
-export type TaskStatus = "To Do" | "In Progress" | "Done";
-export type TaskPriority = "Low" | "Medium" | "High";
+import type {
+  TaskCategory,
+  TaskStatus,
+  TaskPriority,
+} from "@/shared/config/taskOptions";
 
 export interface Task {
   id: string;
