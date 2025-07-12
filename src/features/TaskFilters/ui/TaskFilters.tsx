@@ -28,6 +28,7 @@ export const TaskFilters = () => {
         <Label>Категория</Label>
         <Select
           multiple
+          placeholder="Выберите категорию"
           value={selectedCategories}
           onChange={(e) => {
             const values = Array.from(e.target.selectedOptions).map(
@@ -48,6 +49,7 @@ export const TaskFilters = () => {
         <Label>Статус</Label>
         <Select
           multiple
+          placeholder="Выберите статус"
           value={selectedStatuses}
           onChange={(e) => {
             const values = Array.from(e.target.selectedOptions).map(
@@ -68,6 +70,7 @@ export const TaskFilters = () => {
         <Label>Приоритет</Label>
         <Select
           multiple
+          placeholder="Выберите приоритет"
           value={selectedPriorities}
           onChange={(e) => {
             const values = Array.from(e.target.selectedOptions).map(

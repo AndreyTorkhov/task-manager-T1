@@ -66,7 +66,7 @@ export const TaskDetails = () => {
         />
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex flex-col flex-1 gap-2">
           <Label>Категория</Label>
           <Select
