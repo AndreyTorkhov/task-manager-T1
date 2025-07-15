@@ -6,6 +6,16 @@ import {
 } from "react-hook-form";
 import { TextInput, Label } from "@admiral-ds/react-ui";
 
+/**
+ * Текстовое поле с валидацией и интеграцией react-hook-form
+ * @template T - Тип формы (extends FieldValues)
+ * @param {Object} props - Пропсы компонента
+ * @param {Path<T>} props.name - Имя поля в форме
+ * @param {string} props.label - Подпись поля
+ * @param {Control<T>} props.control - Контрол формы из react-hook-form
+ * @param {string} [props.placeholder] - Плейсхолдер для поля ввода
+ * @returns {JSX.Element} Текстовое поле с обработкой ошибок
+ */
 interface TextInputFieldProps<T extends FieldValues> {
   name: Path<T>;
   label: string;

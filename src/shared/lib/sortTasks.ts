@@ -1,6 +1,9 @@
 import type { Task } from "@/entities/Task";
 import type { SortField, SortDirection } from "@/features/TaskSort";
 
+/**
+ * Сортирует задачи по категориям, статусам и приоритетам
+ */
 const priorityOrder = {
   High: 3,
   Medium: 2,

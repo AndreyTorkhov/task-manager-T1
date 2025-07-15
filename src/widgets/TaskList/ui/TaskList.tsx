@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useTaskFilters } from "@/features/TaskFilters";
 import { useTaskSort } from "@/features/TaskSort";
 import { sortTasks } from "@/shared/lib/sortTasks";
+import { filterTasks } from "@/shared/lib/filterTasks";
 
 export const TaskList = () => {
   const { tasks, getTasks, isLoading } = useTasksStore();
@@ -15,18 +16,12 @@ export const TaskList = () => {
     getTasks();
   }, []);
 
-  const filteredTasks = tasks.filter((task) => {
-    const matchCategory =
-      selectedCategories.length === 0 ||
-      selectedCategories.includes(task.category);
-    const matchStatus =
-      selectedStatuses.length === 0 || selectedStatuses.includes(task.status);
-    const matchPriority =
-      selectedPriorities.length === 0 ||
-      selectedPriorities.includes(task.priority);
-
-    return matchCategory && matchStatus && matchPriority;
-  });
+  const filteredTasks = filterTasks(
+    tasks,
+    selectedCategories,
+    selectedStatuses,
+    selectedPriorities,
+  );
 
   const sortedTasks = sortTasks(filteredTasks, sortField, sortDirection);
 

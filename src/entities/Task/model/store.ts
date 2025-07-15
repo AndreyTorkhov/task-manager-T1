@@ -2,6 +2,16 @@ import { create } from "zustand";
 import { DEMO_TASKS } from "@/shared/config/demo/demoTasks";
 import type { Task } from "./types";
 
+/**
+ * @typedef {Object} TasksState
+ * @property {Task[]} tasks - Список всех задач
+ * @property {boolean} isLoading - Флаг состояния загрузки
+ * @property {string | null} error - Ошибка загрузки задач
+ * @property {() => void} getTasks - Получить задачи из хранилища
+ * @property {(task: Task) => void} updateTask - Обновить задачу
+ * @property {(task: Task) => void} createTask - Создать новую задачу
+ * @property {(id: string) => void} deleteTask - Удалить задачу по ID
+ */
 interface TasksState {
   tasks: Task[];
   isLoading: boolean;

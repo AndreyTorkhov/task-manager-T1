@@ -2,6 +2,18 @@ import { Label, Select, Option } from "@admiral-ds/react-ui";
 import type { ChangeEventHandler } from "react";
 import { ServiceCloseOutline } from "@admiral-ds/icons";
 
+/**
+ * Компонент мультиселекта с возможностью сброса выбора
+ * @template T - Строковый тип для значений опций
+ * @param {Object} props - Пропсы компонента
+ * @param {string} props.label - Подпись поля
+ * @param {readonly T[]} props.options - Доступные варианты выбора
+ * @param {T[]} props.value - Текущие выбранные значения
+ * @param {(value: T[]) => void} props.onChange - Обработчик изменения выбора
+ * @param {string} [props.placeholder] - Плейсхолдер для пустого селекта
+ * @returns {JSX.Element} Мультиселект с кнопкой очистки
+
+ */
 interface MultiSelectFilterProps<T extends string> {
   label: string;
   options: readonly T[];

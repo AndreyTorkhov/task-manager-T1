@@ -2,6 +2,7 @@ import { Button, Tag } from "@admiral-ds/react-ui";
 import { SystemDeleteOutline } from "@admiral-ds/icons";
 import { useNavigate } from "react-router-dom";
 import { getPriorityStyle } from "../lib/getPriorityStyle";
+import { formatDate } from "../lib/formatDate";
 import { useTasksStore } from "../model/store";
 import type { Task } from "../model/types";
 
@@ -16,22 +17,6 @@ export const TaskItem = ({ task }: TaskItemProps) => {
   const handleDelete = (e: React.MouseEvent) => {
     e.stopPropagation();
     deleteTask(task.id);
-  };
-
-  const formatDate = (dateString?: string) => {
-    if (!dateString) return "Неизвестно";
-
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) return "Неизвестно";
-
-    return (
-      date.toLocaleDateString("ru-RU") +
-      " " +
-      date.toLocaleTimeString("ru-RU", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-    );
   };
 
   const formattedDate = formatDate(task.createdAt);
@@ -60,7 +45,7 @@ export const TaskItem = ({ task }: TaskItemProps) => {
 
       {task.description && (
         <p
-          className="text-xs sm:text-sm text-gray-600 line-clamp-2 min-h-[2rem]"
+          className="text-xs sm:text-sm text-gray-600 line-clamp-2 overflow-hidden text-ellipsis"
           title={task.description}
         >
           {task.description}
