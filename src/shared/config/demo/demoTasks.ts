@@ -8,6 +8,7 @@ export const DEMO_TASKS: Task[] = [
     category: "Test",
     status: "To Do",
     priority: "Medium",
+    createdAt: "2024-07-01T10:00:00.000Z",
   },
   {
     id: "2",
@@ -15,6 +16,7 @@ export const DEMO_TASKS: Task[] = [
     category: "Documentation",
     status: "In Progress",
     priority: "Low",
+    createdAt: "2024-07-02T12:30:00.000Z",
   },
   {
     id: "3",
@@ -23,6 +25,7 @@ export const DEMO_TASKS: Task[] = [
     category: "Bug",
     status: "In Progress",
     priority: "High",
+    createdAt: "2024-07-03T09:45:00.000Z",
   },
   {
     id: "4",
@@ -31,6 +34,7 @@ export const DEMO_TASKS: Task[] = [
     category: "Feature",
     status: "To Do",
     priority: "Medium",
+    createdAt: "2024-07-04T15:20:00.000Z",
   },
   {
     id: "5",
@@ -39,6 +43,7 @@ export const DEMO_TASKS: Task[] = [
     category: "Refactor",
     status: "Done",
     priority: "Medium",
+    createdAt: "2024-07-05T14:10:00.000Z",
   },
   {
     id: "6",
@@ -46,5 +51,6 @@ export const DEMO_TASKS: Task[] = [
     category: "Test",
     status: "In Progress",
     priority: "High",
+    createdAt: "2024-07-06T08:05:00.000Z",
   },
 ];

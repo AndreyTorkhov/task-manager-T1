@@ -12,6 +12,7 @@ export const taskSchema = z.object({
   category: z.enum(taskCategories),
   status: z.enum(taskStatuses),
   priority: z.enum(taskPriorities),
+  createdAt: z.string(),
 });
 
 export type TaskFormValues = z.infer<typeof taskSchema>;

@@ -1,17 +1,46 @@
-import type { Task } from "../model/types";
 import { Button, Tag } from "@admiral-ds/react-ui";
-import { Link } from "react-router-dom";
+import { SystemDeleteOutline } from "@admiral-ds/icons";
+import { useNavigate } from "react-router-dom";
 import { getPriorityStyle } from "../lib/getPriorityStyle";
+import { useTasksStore } from "../model/store";
+import type { Task } from "../model/types";
 
 interface TaskItemProps {
   task: Task;
 }
 
 export const TaskItem = ({ task }: TaskItemProps) => {
+  const { deleteTask } = useTasksStore();
+  const navigate = useNavigate();
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    deleteTask(task.id);
+  };
+
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return "Неизвестно";
+
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return "Неизвестно";
+
+    return (
+      date.toLocaleDateString("ru-RU") +
+      " в " +
+      date.toLocaleTimeString("ru-RU", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    );
+  };
+
+  const formattedDate = formatDate(task.createdAt);
+
   return (
     <div
-      className="border rounded-xl p-3 sm:p-4 flex flex-col gap-2 sm:gap-3 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer min-h-[160px] sm:min-h-[200px] w-full max-w-full"
+      className="border rounded-xl p-3 sm:p-4 flex flex-col gap-2 sm:gap-3 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer min-h-[180px] sm:min-h-[220px] w-full max-w-full"
       tabIndex={0}
+      onClick={() => navigate(`/task/${task.id}`)}
     >
       <div className="flex justify-between items-center overflow-hidden h-7 sm:h-8">
         <h2
@@ -38,25 +67,25 @@ export const TaskItem = ({ task }: TaskItemProps) => {
         </p>
       )}
 
-      <div className="mt-auto pt-2">
-        <div className="flex flex-wrap gap-1 sm:gap-2 text-xs mb-2">
-          <Tag dimension="s" kind="primary">
-            {task.category}
-          </Tag>
-          <Tag dimension="s" kind="primary">
-            {task.status}
-          </Tag>
-        </div>
+      <div className="mt-auto pt-2 flex flex-wrap gap-1 sm:gap-2 text-xs mb-2">
+        <Tag dimension="s" kind="primary">
+          {task.category}
+        </Tag>
+        <Tag dimension="s" kind="primary">
+          {task.status}
+        </Tag>
+      </div>
 
-        <Link to={`/task/${task.id}`}>
-          <Button
-            dimension="s"
-            appearance="secondary"
-            className="w-full text-xs"
-          >
-            Edit
-          </Button>
-        </Link>
+      <div className="flex justify-between items-center border-t pt-2">
+        <span className="text-xs text-gray-500">Создано: {formattedDate}</span>
+        <Button
+          dimension="s"
+          appearance="ghost"
+          onClick={handleDelete}
+          className="!text-red-500 hover:!bg-red-50 !p-1"
+        >
+          <SystemDeleteOutline width={16} height={16} />
+        </Button>
       </div>
     </div>
   );

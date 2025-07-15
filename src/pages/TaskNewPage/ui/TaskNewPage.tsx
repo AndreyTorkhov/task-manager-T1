@@ -18,12 +18,14 @@ export const NewTaskPage = () => {
     category: "Bug",
     status: "To Do",
     priority: "Medium",
+    createdAt: new Date().toISOString(),
   });
 
   const handleCreate = (data: TaskFormValues) => {
     createTask({
       ...data,
       id: uuidv4(),
+      createdAt: new Date().toISOString(),
     });
     navigate("/");
   };
