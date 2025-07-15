@@ -1,5 +1,6 @@
 import { Label, Select, Option } from "@admiral-ds/react-ui";
 import type { ChangeEventHandler } from "react";
+import { ServiceCloseOutline } from "@admiral-ds/icons";
 
 interface MultiSelectFilterProps<T extends string> {
   label: string;
@@ -23,21 +24,39 @@ export function MultiSelectFilter<T extends string>({
     onChange(values);
   };
 
+  const handleClear = () => {
+    onChange([]);
+  };
+
   return (
     <div className="flex flex-col gap-2">
       <Label>{label}</Label>
-      <Select
-        multiple
-        value={value}
-        onChange={handleChange}
-        placeholder={placeholder}
-      >
-        {options.map((v) => (
-          <Option key={v} value={v}>
-            {v}
-          </Option>
-        ))}
-      </Select>
+      <div className="flex items-center gap-2">
+        <Select
+          multiple
+          value={value}
+          onChange={handleChange}
+          placeholder={placeholder}
+          className="flex-grow"
+        >
+          {options.map((v) => (
+            <Option key={v} value={v}>
+              {v}
+            </Option>
+          ))}
+        </Select>
+        {value.length > 0 && (
+          <button
+            type="button"
+            onClick={handleClear}
+            className="flex items-center justify-center w-8 h-8 text-gray-500 hover:text-gray-700 focus:outline-none"
+            aria-label="Clear selection"
+            title="Clear selection"
+          >
+            <ServiceCloseOutline width={24} height={24} />
+          </button>
+        )}
+      </div>
     </div>
   );
 }

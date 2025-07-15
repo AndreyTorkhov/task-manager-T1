@@ -1,0 +1,15 @@
+# Project dependencies
+
+node_modules/
+
+# Build
+
+dist/
+
+# Vite config file
+
+vite.config.ts
+vitest.config.ts
+
+.github
+README.md

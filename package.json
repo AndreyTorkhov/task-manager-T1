@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@admiral-ds/fonts": "2.0.0",
+    "@admiral-ds/icons": "^4.3.9",
     "@admiral-ds/react-ui": "^8.52.2",
     "@hookform/resolvers": "^5.1.1",
     "@tailwindcss/vite": "^4.1.11",

@@ -7,6 +7,11 @@
   resolved "https://registry.yarnpkg.com/@admiral-ds/fonts/-/fonts-2.0.0.tgz#092ea18aee849cc31ef86ce860bfdb87339b9e78"
   integrity sha512-Kxa4Aq93By2XdIXXjA3xo1s5TxoQI9Q0aXDPYGW9wRxvcZ5xI7tXMQUqkBInOMd9QrdO5jm7mk+mgKL77FOtSQ==
 
+"@admiral-ds/icons@^4.3.9":
+  version "4.3.9"
+  resolved "https://registry.yarnpkg.com/@admiral-ds/icons/-/icons-4.3.9.tgz#7548390e73bb0e32556f2fc280dc8347d04a2318"
+  integrity sha512-QeBHlYOxq8OFv5Af69JIKA20dOULueH3VVYmVD5pmXwTfajciRCLCEhHIy+OmDF3vhfXKIKjOxo6In6mt/7P5A==
+
 "@admiral-ds/react-ui@^8.52.2":
   version "8.52.2"
   resolved "https://registry.yarnpkg.com/@admiral-ds/react-ui/-/react-ui-8.52.2.tgz#85d3d3a18fdab7a9a0fdf900c7781a03e9630d8a"
