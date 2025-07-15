@@ -8,6 +8,8 @@ interface TasksState {
   error: string | null;
   getTasks: () => void;
   updateTask: (task: Task) => void;
+  createTask: (task: Task) => void;
+  deleteTask: (id: string) => void;
 }
 
 const LS_KEY = "task-manager-tasks";
@@ -44,7 +46,20 @@ export const useTasksStore = create<TasksState>((set, get) => ({
     const updatedTasks = tasks.map((t) =>
       t.id === updatedTask.id ? updatedTask : t,
     );
+    set({ tasks: updatedTasks });
+    localStorage.setItem(LS_KEY, JSON.stringify(updatedTasks));
+  },
 
+  createTask: (newTask: Task) => {
+    const { tasks } = get();
+    const updatedTasks = [...tasks, newTask];
+    set({ tasks: updatedTasks });
+    localStorage.setItem(LS_KEY, JSON.stringify(updatedTasks));
+  },
+
+  deleteTask: (id: string) => {
+    const { tasks } = get();
+    const updatedTasks = tasks.filter((task) => task.id !== id);
     set({ tasks: updatedTasks });
     localStorage.setItem(LS_KEY, JSON.stringify(updatedTasks));
   },
