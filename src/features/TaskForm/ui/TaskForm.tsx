@@ -14,9 +14,16 @@ interface Props {
   onSubmit: (data: TaskFormValues) => void;
   onCancel: () => void;
   isEdit?: boolean;
+  isLoading?: boolean;
 }
 
-export const TaskForm = ({ form, onSubmit, onCancel, isEdit }: Props) => {
+export const TaskForm = ({
+  form,
+  onSubmit,
+  onCancel,
+  isEdit,
+  isLoading,
+}: Props) => {
   const { control, handleSubmit } = form;
 
   return (
@@ -76,7 +83,12 @@ export const TaskForm = ({ form, onSubmit, onCancel, isEdit }: Props) => {
         >
           Cancel
         </Button>
-        <Button type="submit" appearance="primary" dimension="s">
+        <Button
+          type="submit"
+          appearance="primary"
+          dimension="s"
+          loading={isLoading}
+        >
           Save
         </Button>
       </div>

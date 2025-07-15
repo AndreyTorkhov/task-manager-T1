@@ -11,21 +11,29 @@ interface TaskItemProps {
 }
 
 export const TaskItem = ({ task }: TaskItemProps) => {
-  const { deleteTask } = useTasksStore();
+  const { deleteTask, isLoading } = useTasksStore();
   const navigate = useNavigate();
 
-  const handleDelete = (e: React.MouseEvent) => {
+  const handleDelete = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    deleteTask(task.id);
+    await deleteTask(task.id);
+  };
+
+  const handleNavigate = () => {
+    if (!isLoading) {
+      navigate(`/task/${task.id}`);
+    }
   };
 
   const formattedDate = formatDate(task.createdAt);
 
   return (
     <div
-      className="border border-gray-200 rounded-xl p-3 sm:p-4 flex flex-col gap-2 sm:gap-3 bg-white shadow-sm hover:shadow-md hover:border-blue-500 transition-all duration-200 cursor-pointer min-h-[180px] sm:min-h-[220px] w-full max-w-full"
+      className={`border border-gray-200 rounded-xl p-3 sm:p-4 flex flex-col gap-2 sm:gap-3 bg-white shadow-sm hover:shadow-md hover:border-blue-500 transition-all duration-200 cursor-pointer min-h-[180px] sm:min-h-[220px] w-full max-w-full ${
+        isLoading ? "pointer-events-none opacity-50" : ""
+      }`}
       tabIndex={0}
-      onClick={() => navigate(`/task/${task.id}`)}
+      onClick={handleNavigate}
     >
       <div className="flex justify-between items-center overflow-hidden h-7 sm:h-8">
         <h2
@@ -69,6 +77,7 @@ export const TaskItem = ({ task }: TaskItemProps) => {
           dimension="s"
           appearance="danger"
           onClick={handleDelete}
+          loading={isLoading}
           className="!p-1"
         >
           <SystemDeleteOutline width={16} height={16} />

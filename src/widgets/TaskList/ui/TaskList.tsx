@@ -1,6 +1,7 @@
 import { useTasksStore } from "@/entities/Task";
 import { TaskItem } from "@/entities/Task/ui/TaskItem";
 import { useEffect } from "react";
+import { Spinner } from "@admiral-ds/react-ui";
 import { useTaskFilters } from "@/features/TaskFilters";
 import { useTaskSort } from "@/features/TaskSort";
 import { sortTasks } from "@/shared/lib/sortTasks";
@@ -25,7 +26,12 @@ export const TaskList = () => {
 
   const sortedTasks = sortTasks(filteredTasks, sortField, sortDirection);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-[300px]">
+        <Spinner />
+      </div>
+    );
 
   if (!filteredTasks.length)
     return <div className="text-center text-gray-600 mt-10">No tasks</div>;
