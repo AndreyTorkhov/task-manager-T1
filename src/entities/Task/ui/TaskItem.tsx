@@ -26,7 +26,7 @@ export const TaskItem = ({ task }: TaskItemProps) => {
 
     return (
       date.toLocaleDateString("ru-RU") +
-      " в " +
+      " " +
       date.toLocaleTimeString("ru-RU", {
         hour: "2-digit",
         minute: "2-digit",
@@ -38,7 +38,7 @@ export const TaskItem = ({ task }: TaskItemProps) => {
 
   return (
     <div
-      className="border rounded-xl p-3 sm:p-4 flex flex-col gap-2 sm:gap-3 bg-white shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer min-h-[180px] sm:min-h-[220px] w-full max-w-full"
+      className="border border-gray-200 rounded-xl p-3 sm:p-4 flex flex-col gap-2 sm:gap-3 bg-white shadow-sm hover:shadow-md hover:border-blue-500 transition-all duration-200 cursor-pointer min-h-[180px] sm:min-h-[220px] w-full max-w-full"
       tabIndex={0}
       onClick={() => navigate(`/task/${task.id}`)}
     >
@@ -77,12 +77,14 @@ export const TaskItem = ({ task }: TaskItemProps) => {
       </div>
 
       <div className="flex justify-between items-center border-t pt-2">
-        <span className="text-xs text-gray-500">Создано: {formattedDate}</span>
+        <span className="text-xs text-gray-500">
+          Created at {formattedDate}
+        </span>
         <Button
           dimension="s"
-          appearance="ghost"
+          appearance="danger"
           onClick={handleDelete}
-          className="!text-red-500 hover:!bg-red-50 !p-1"
+          className="!p-1"
         >
           <SystemDeleteOutline width={16} height={16} />
         </Button>

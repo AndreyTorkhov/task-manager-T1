@@ -2,11 +2,14 @@ import { useTasksStore } from "@/entities/Task";
 import { TaskItem } from "@/entities/Task/ui/TaskItem";
 import { useEffect } from "react";
 import { useTaskFilters } from "@/features/TaskFilters";
+import { useTaskSort } from "@/features/TaskSort";
+import { sortTasks } from "@/shared/lib/sortTasks";
 
 export const TaskList = () => {
   const { tasks, getTasks, isLoading } = useTasksStore();
   const { selectedCategories, selectedStatuses, selectedPriorities } =
     useTaskFilters();
+  const { sortField, sortDirection } = useTaskSort();
 
   useEffect(() => {
     getTasks();
@@ -25,6 +28,8 @@ export const TaskList = () => {
     return matchCategory && matchStatus && matchPriority;
   });
 
+  const sortedTasks = sortTasks(filteredTasks, sortField, sortDirection);
+
   if (isLoading) return <div>Loading...</div>;
 
   if (!filteredTasks.length)
@@ -32,7 +37,7 @@ export const TaskList = () => {
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {filteredTasks.map((task) => (
+      {sortedTasks.map((task) => (
         <TaskItem key={task.id} task={task} />
       ))}
     </div>
