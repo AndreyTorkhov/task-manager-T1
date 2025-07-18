@@ -3,15 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { TaskFilters } from "@/features/TaskFilters";
 import { TaskList } from "@/widgets/TaskList";
 import { TaskSort } from "@/features/TaskSort";
+import { TaskSearch } from "@/features/TaskSearch";
 
 export const TasksPage = () => {
   const navigate = useNavigate();
 
   return (
     <div className="p-6">
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
         <h1 className="text-2xl font-bold">List of tasks</h1>
-        <div className="sm:self-start">
+        <TaskSearch />
+        <div className="flex flex-col sm:flex-row items-center gap-4">
           <TaskSort />
         </div>
       </div>

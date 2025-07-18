@@ -1,22 +1,24 @@
 import { create } from "zustand";
-import type { Task } from "./types";
+import type { Task, TaskQuery } from "./types";
 import { TaskService } from "../api";
 
 /**
  * @typedef {Object} TasksState
- * @property {Task[]} tasks - Список всех задач
- * @property {boolean} isLoading - Флаг состояния загрузки
- * @property {string | null} error - Текст ошибки или null
- * @property {string | null} selectedTaskId - ID выбранной задачи
- * @property {Task | null} selectedTask - Объект выбранной задачи
+ * @property {Task[]} tasks                         - Список всех задач
+ * @property {boolean} isLoading                    - Флаг состояния загрузки
+ * @property {string | null} error                  - Текст ошибки или null
+ * @property {string | null} selectedTaskId         - ID выбранной задачи
+ * @property {Task   | null} selectedTask           - Объект выбранной задачи
+ * @property {TaskQuery}       searchParams         - Последний использованный запрос к бэку
  * @property {(id: string | null) => void} setSelectedTaskId - Устанавливает ID выбранной задачи
- * @property {(task: Task | null) => void} setSelectedTask - Устанавливает выбранную задачу
- * @property {() => Promise<void>} getTasks - Загружает все задачи
- * @property {(id: string) => Promise<Task | null>} getTaskById - Получает задачу по ID
- * @property {(task: Omit<Task, 'id' | 'createdAt'>) => Promise<Task | null>} createTask - Создает новую задачу
- * @property {(id: string, task: task: Omit<Task, 'id' | 'createdAt'>) => Promise<void>} updateTask - Обновляет задачу
- * @property {(id: string) => Promise<void>} deleteTask - Удаляет задачу
- * @property {() => Promise<void>} fetchSelectedTask - Загружает задачу по selectedTaskId
+ * @property {(task: Task | null) => void} setSelectedTask   - Устанавливает выбранную задачу
+ * @property {(p: TaskQuery) => void}        setSearchParams - Сохраняет параметры поиска
+ * @property {(p?: TaskQuery) => Promise<void>}       getTasks        - Загружает задачи (учитывает p или сохранённые searchParams)
+ * @property {(id: string) => Promise<Task | null>}   getTaskById     - Получает задачу по ID
+ * @property {(task: Omit<Task,'id'|'createdAt'>) => Promise<Task|null>} createTask - Создаёт новую задачу
+ * @property {(id: string, task: Omit<Task,'id'|'createdAt'>) => Promise<void>} updateTask - Обновляет задачу
+ * @property {(id: string) => Promise<void>}         deleteTask      - Удаляет задачу
+ * @property {() => Promise<void>}                   fetchSelectedTask - Загружает задачу по selectedTaskId
  */
 interface TasksState {
   tasks: Task[];
@@ -25,11 +27,13 @@ interface TasksState {
 
   selectedTaskId: string | null;
   selectedTask: Task | null;
+  searchParams: TaskQuery;
 
   setSelectedTaskId: (id: string | null) => void;
   setSelectedTask: (task: Task | null) => void;
+  setSearchParams: (p: TaskQuery) => void;
 
-  getTasks: () => Promise<void>;
+  getTasks: (p?: TaskQuery) => Promise<void>;
   getTaskById: (id: string) => Promise<Task | null>;
   createTask: (task: Omit<Task, "id" | "createdAt">) => Promise<Task | null>;
   updateTask: (
@@ -48,15 +52,18 @@ export const useTasksStore = create<TasksState>((set, get) => ({
 
   selectedTaskId: null,
   selectedTask: null,
+  searchParams: {},
 
   setSelectedTaskId: (id) => set({ selectedTaskId: id }),
   setSelectedTask: (task) => set({ selectedTask: task }),
+  setSearchParams: (p) => set({ searchParams: p }),
 
-  getTasks: async () => {
+  getTasks: async (p) => {
+    const query = p ?? get().searchParams ?? {};
     set({ isLoading: true, error: null });
     try {
-      const { data } = await TaskService.getAll();
-      set({ tasks: data });
+      const { data } = await TaskService.getAll(query);
+      set({ tasks: data, searchParams: query });
     } catch {
       set({ error: "Error receiving tasks" });
     } finally {

@@ -11,7 +11,7 @@ export const TaskSort = () => {
     useTaskSort();
 
   return (
-    <div className="flex items-center gap-4 mb-6">
+    <div className="flex items-center gap-2">
       <Label>Sort by</Label>
       <Select
         value={sortField}

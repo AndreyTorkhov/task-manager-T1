@@ -23,3 +23,5 @@ export interface Task {
   priority: TaskPriority;
   createdAt: string;
 }
+
+export type TaskQuery = { title?: string; date?: string };

@@ -1,8 +1,8 @@
 import { $api } from "@/shared/config/axios";
-import type { Task } from "../model/types";
+import type { Task, TaskQuery } from "../model/types";
 
 export const TaskService = {
-  getAll: () => $api.get<Task[]>("/tasks"),
+  getAll: (params?: TaskQuery) => $api.get<Task[]>("/tasks", { params }),
   getById: (id: string) => $api.get<Task>(`/tasks/${id}`),
   create: (task: Omit<Task, "id" | "createdAt">) =>
     $api.post<Task>("/tasks", task),
