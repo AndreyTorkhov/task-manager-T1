@@ -2,10 +2,12 @@
 
 Простой и быстрый менеджер задач с удобным UI. Проект построен по архитектуре FSD с соблюдением принципов SOLID. Задачи хранятся на сервере, управление состоянием реализовано через Zustand.
 
+Backend repo: https://github.com/AndreyTorkhov/task-manager-T1-server
+
 ## 🌐 Продакшн
 Frontend: https://task-manager-t1-andreytorkhovs-projects.vercel.app
 
-Backend API: https://task-manager-t1-backend.vercel.app
+Backend API: https://task-manager-t1-server.vercel.app
 
 ## 🧠 Ключевые решения
 

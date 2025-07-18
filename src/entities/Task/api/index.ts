@@ -7,6 +7,6 @@ export const TaskService = {
   create: (task: Omit<Task, "id" | "createdAt">) =>
     $api.post<Task>("/tasks", task),
   update: (id: string, task: Omit<Task, "id" | "createdAt">) =>
-    $api.put<Task>(`/tasks/${id}`, task),
+    $api.patch<Task>(`/tasks/${id}`, task),
   delete: (id: string) => $api.delete(`/tasks/${id}`),
 };
